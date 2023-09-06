@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reign Storm Surge Incentive - Coke Consolidated Mid-South MU</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="Web form to submit execution items for the 2023 Reign Storm Surge Incentive in Coke Consolidated Mid-South MU">
+        <meta name="author" content="Phil Shapiro">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            * {
+                position: relative;
+                font-family: 'Arial';
+                font-size: 1em;
+                margin: 0;
+                padding: 0;
+            }
+
+            .bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                min-width: 100%;
+                min-height: 100%;
+                z-index: 0;
+            }
+
+            header {
+                position: sticky; top: 0;
+                background-color: black;
+                padding: 0.5em 0 1em 0;
+                margin-bottom: 1em;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-between;
+                gap: 1.5em;
+                align-items: center;
+                z-index: 2;
+            }
+
+            main {
+                z-index: 1;
+            }
+
+            h1 {
+                font-size: 2em;
+                color: white;
+                text-align: center;
+                flex-grow: 1;
+                margin: 0;
+            }
+
+            h2 {
+                font-size: 1.65em;
+                color: white;
+                text-align: center;
+                font-style: italic;
+                flex-grow: 1;
+                margin: 0;
+            }
+
+            p {
+                font-size: 1em;
+                font-style: italic;
+                color: white;
+                text-align: center;
+            }
+
+            form {
+                display: flex;
+                width: 95%;
+                flex-flow: column nowrap;
+                gap: 2em;
+                margin: auto;
+
+                /*
+                background-color: rgba(255, 255, 255, 0.35);
+                */
+                padding: 1em;
+            }
+
+            form label, form legend {
+                color: rgb(125, 218, 0);
+                font-weight: bold;
+            }
+
+            form legend {
+                font-size: 1.25em;
+            }
+
+            form fieldset{
+                display: flex;
+                flex-flow: column wrap;
+                justify-content: flex-start;
+                gap: 1.5em;
+            }
+
+            form .form-row {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: flex-start;
+                gap: 1.5em;
+                width: 100%;
+            }
+
+            form .text-input {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 2;
+            }
+
+            form .dropdown-input {
+                display: flex;
+                flex-flow: column wrap;
+                flex-grow: 1;
+            }
+
+            input, select {
+                background-color: black;
+                color: white;
+                padding: 0.5em;
+                margin: 0.5em 0 0.5em 0;
+                color: white;
+            }
+        </style>
+
+        <script type="text/javascript">
+            var largeStoreExecution = [
+                {
+                    text: 'Walmart Side Burn Rack',
+                    value: 'walmart-sideburn'
+                },
+                {
+                    text: 'Always On Display',
+                    value: 'always-on'
+                },
+                {
+                    text: 'Reign Storm in Walmart Shared Energy Cooler',
+                    value: 'reign-storm-wm-cooler'
+                },
+                {
+                    text: 'Filled Energy warm Shelf',
+                    value: 'filled-energy-shelf'
+                }
+            ]
+
+            var smallStoreExecution = [
+                {
+                    text: 'Reign Storm 15+cs Shipper Display',
+                    value: 'reign-storm-display'
+                },
+                {
+                    text: '15+cs Zero Sugar/Green/White Display',
+                    value: 'fair-share-display'
+                },
+                {
+                    text: 'Filled Bang Energy Shelves',
+                    value: 'filled-bang-shelves'
+                },
+                {
+                    text: 'Call of Duty POS Placement',
+                    value: 'cod-pos'
+                }
+            ]
+
+            function smallLargeSelect() {
+                var selectedValue = document.getElementById('small-large').value;
+                
+                var executionList = document.getElementById('execution-item').options;
+                
+                for (i = executionList.length - 1; i >= 0; i--) {
+                    executionList[i] = null;
+                }
+
+                if (selectedValue == 'small') {
+                    executionList.add(
+                        new Option('Select an execution item', '')
+                    );
+
+                    smallStoreExecution.forEach(function(item) {
+                        executionList.add(
+                            new Option(item.text, item.value)
+                        );
+                    });
+                } else if (selectedValue == 'large') {
+                    executionList.add(
+                        new Option('Select an execution item', '')
+                    );
+
+                    largeStoreExecution.forEach(function(item) {
+                        executionList.add(
+                            new Option(item.text, item.value)
+                        );
+                    });
+                } else {
+                    executionList.add(
+                        new Option('Select "Small Store" or "Large Store" first.', '')
+                    );
+                }
+            }
+        </script>
+
+    </head>
+    <body>
+        <img class="bg" src="./img/zero_sugar_bg.png" alt="">
+        <header>
+            <img src="./img/monster_logo.png" style="height: 70px;" alt="Monster Energy Company Logo" />
+            <h1>Reign Storm Surge Week Incentive</h1>
+            <h2>Submission Form</h2>
+        </header>
+        <main>
+            <p>Use the following form for all entries to the Reign Storm Surge Week incentive program. This form can only support one submission at a time. All fields are required.</p>
+            <form name="incentive-submission" method="post" action="form-submit.py">
+                <fieldset>
+                    <legend>Your Information</legend>
+                    <div class="form-row">
+                        <div class="dropdown-input">
+                            <label for="salesCenter">Sales Center</label>
+                            <select id="salesCenter" name="salesCenter" required>
+                                <option value="">Select a Sales Center</option>
+                                <option value="littleRock">Little Rock</option>
+                                <option value="Memphis">Memphis</option>
+                            </select>
+                        </div>
+            
+                        <div class="dropdown-input">
+                            <label for="small-large">Sales Center</label>
+                            <select id="small-large" name="small-large" onchange="smallLargeSelect()" required>
+                                <option value="">Are you Small Store or Large Store?</option>
+                                <option value="small">Small Store</option>
+                                <option value="large">Large Store</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="text-input">
+                            <label for="ad-fname">First name</label>
+                            <input type="text" id="ad-fname" name="ad-fname" placeholder="Danny" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                        </div>
+                        <div class="text-input">
+                            <label for="ad-lname">Last name</label>
+                            <input type="text" id="ad-lname" name="ad-lname" placeholder="Holmes" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                        </div>
+                    </div>
+                </fieldset>
+            
+                <fieldset>
+                    <legend>Your DSM Information</legend>
+                    <div class="form-row">
+                        <div class="text-input">
+                            <label for="dsm-fname">First name</label>
+                            <input type="text" id="dsm-fname" name="dsm-fname" placeholder="Frank" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                        </div>
+                        <div class="text-input">
+                            <label for="dsm-lname">Last name</label>
+                            <input type="text" id="dsm-lname" name="dsm-lname" placeholder="Harris" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                        </div>
+                    </div>
+                </fieldset>
+            
+                <fieldset>
+                    <legend>Account Information</legend>
+                    <div class="form-row">
+                        <div class="text-input">
+                            <label for="account-name">Account name</label>
+                            <input type="text" id="account-name" name="account-name" placeholder="Bob Seiter's Bourbon Emporium" pattern="(\d{1,})?(\s{0,1}\w{1,})(\s{1}?\w{1,})+" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="text-input">
+                            <label for="account-address">Street Address</label>
+                            <input type="text" id="account-address" name="account-address" placeholder="1234 Wallaby Lane" pattern="\d{1,}(\s{1}\w{1,})(\s{1}?\w{1,})+" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="text-input">
+                            <label for="account-city">City</label>
+                            <input type="text" id="account-city" name="account-city" placeholder="Koala" pattern="^(?=[A-Za-z]{2,25}([\s\.\-]{1,3})?).{2,25}$" required>
+                        </div>
+            
+                        <div class="dropdown-input">
+                            <label for="account-state">State</label>
+                            <select id="account-state" name="account-state" required>
+                                <option value="">Select a state</option>
+                                <option value="AR">AR</option>
+                                <option value="IL">IL</option>
+                                <option value="KY">KY</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="TN">TN</option>
+                                <option value="VA">VA</option>
+                            </select>
+                        </div>
+            
+                        <div class="text-input">
+                            <label for="account-zip">Zip code</label>
+                            <input type="text" id="account-zip" name="account-zip" placeholder="12345" pattern="[0-9]{5}" required>
+                        </div>
+                    </div>
+                </fieldset>
+            
+                <div class="form-row">
+                    <div class="dropdown-input">
+                        <label for="execution-item">Execution item completed</label>
+                        <select id="execution-item" name="execution-item" required>
+                            <option value="">Select "Small Store" or "Large Store" first.</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="image-upload">
+                        <label for="before-image">Upload a Before Picture</label>
+                        <input type="file" id="before-image" name="before-image" accept="image/*;capture=camera" required>
+                    </div>
+                    <div class="image-upload">
+                        <label for="after-image">Upload an After Picture</label>
+                        <input type="file" id="after-image" name="after-image" accept="image/*;capture=camera" required>
+                    </div>
+                </div>
+                
+            </form>
+        </main>
+    </body>
+</html>
