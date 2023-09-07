@@ -93,6 +93,7 @@
                 flex-flow: column wrap;
                 justify-content: flex-start;
                 gap: 1.5em;
+                padding: 1em;
             }
 
             form .form-row {
@@ -121,84 +122,13 @@
                 padding: 0.5em;
                 margin: 0.5em 0 0.5em 0;
                 color: white;
+                -webkit-transition: background-color 250ms linear;
+                -ms-transition: background-color 250ms linear;
+                transition: background-color 250ms linear;
             }
         </style>
 
-        <script type="text/javascript">
-            var largeStoreExecution = [
-                {
-                    text: 'Walmart Side Burn Rack',
-                    value: 'walmart-sideburn'
-                },
-                {
-                    text: 'Always On Display',
-                    value: 'always-on'
-                },
-                {
-                    text: 'Reign Storm in Walmart Shared Energy Cooler',
-                    value: 'reign-storm-wm-cooler'
-                },
-                {
-                    text: 'Filled Energy warm Shelf',
-                    value: 'filled-energy-shelf'
-                }
-            ]
-
-            var smallStoreExecution = [
-                {
-                    text: 'Reign Storm 15+cs Shipper Display',
-                    value: 'reign-storm-display'
-                },
-                {
-                    text: '15+cs Zero Sugar/Green/White Display',
-                    value: 'fair-share-display'
-                },
-                {
-                    text: 'Filled Bang Energy Shelves',
-                    value: 'filled-bang-shelves'
-                },
-                {
-                    text: 'Call of Duty POS Placement',
-                    value: 'cod-pos'
-                }
-            ]
-
-            function smallLargeSelect() {
-                var selectedValue = document.getElementById('small-large').value;
-                
-                var executionList = document.getElementById('execution-item').options;
-                
-                for (i = executionList.length - 1; i >= 0; i--) {
-                    executionList[i] = null;
-                }
-
-                if (selectedValue == 'small') {
-                    executionList.add(
-                        new Option('Select an execution item', '')
-                    );
-
-                    smallStoreExecution.forEach(function(item) {
-                        executionList.add(
-                            new Option(item.text, item.value)
-                        );
-                    });
-                } else if (selectedValue == 'large') {
-                    executionList.add(
-                        new Option('Select an execution item', '')
-                    );
-
-                    largeStoreExecution.forEach(function(item) {
-                        executionList.add(
-                            new Option(item.text, item.value)
-                        );
-                    });
-                } else {
-                    executionList.add(
-                        new Option('Select "Small Store" or "Large Store" first.', '')
-                    );
-                }
-            }
-        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
     </head>
     <body>
@@ -210,7 +140,7 @@
         </header>
         <main>
             <p>Use the following form for all entries to the Reign Storm Surge Week incentive program. This form can only support one submission at a time. All fields are required.</p>
-            <form name="incentive-submission" method="post" action="form-submit.py">
+            <form id="submission-form" name="incentive-submission" method="post" action="form-submit.py">
                 <fieldset>
                     <legend>Your Information</legend>
                     <div class="form-row">
@@ -225,7 +155,7 @@
             
                         <div class="dropdown-input">
                             <label for="small-large">Sales Center</label>
-                            <select id="small-large" name="small-large" onchange="smallLargeSelect()" required>
+                            <select id="small-large" name="small-large" required>
                                 <option value="">Are you Small Store or Large Store?</option>
                                 <option value="small">Small Store</option>
                                 <option value="large">Large Store</option>
@@ -235,11 +165,11 @@
                     <div class="form-row">
                         <div class="text-input">
                             <label for="ad-fname">First name</label>
-                            <input type="text" id="ad-fname" name="ad-fname" placeholder="Danny" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                            <input type="text" id="ad-fname" name="ad-fname" placeholder="Danny" pattern="\D{2,}(\s{1}?\D{2,})?" required>
                         </div>
                         <div class="text-input">
                             <label for="ad-lname">Last name</label>
-                            <input type="text" id="ad-lname" name="ad-lname" placeholder="Holmes" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                            <input type="text" id="ad-lname" name="ad-lname" placeholder="Holmes" pattern="\D{2,}(\s{1}?\D{2,})?" required>
                         </div>
                     </div>
                 </fieldset>
@@ -249,11 +179,11 @@
                     <div class="form-row">
                         <div class="text-input">
                             <label for="dsm-fname">First name</label>
-                            <input type="text" id="dsm-fname" name="dsm-fname" placeholder="Frank" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                            <input type="text" id="dsm-fname" name="dsm-fname" placeholder="Frank" pattern="\D{2,}(\s{1}?\D{2,})?" required>
                         </div>
                         <div class="text-input">
                             <label for="dsm-lname">Last name</label>
-                            <input type="text" id="dsm-lname" name="dsm-lname" placeholder="Harris" pattern="\D{1,}(\s{1}?\D{1,})?" required>
+                            <input type="text" id="dsm-lname" name="dsm-lname" placeholder="Harris" pattern="\D{2,}(\s{1}?\D{2,})?" required>
                         </div>
                     </div>
                 </fieldset>
@@ -322,5 +252,95 @@
                 
             </form>
         </main>
+
+        <script>
+            // Execution Items Dropdown options for "Large Store"
+            var largeStoreExecution = [
+                {
+                    text: 'Walmart Side Burn Rack',
+                    value: 'walmart-sideburn'
+                },
+                {
+                    text: 'Always On Display',
+                    value: 'always-on'
+                },
+                {
+                    text: 'Reign Storm in Walmart Shared Energy Cooler',
+                    value: 'reign-storm-wm-cooler'
+                },
+                {
+                    text: 'Filled Energy warm Shelf',
+                    value: 'filled-energy-shelf'
+                }
+            ]
+
+            // Execution Items Dropdown options for "Small Store"
+            var smallStoreExecution = [
+                {
+                    text: 'Reign Storm 15+cs Shipper Display',
+                    value: 'reign-storm-display'
+                },
+                {
+                    text: '15+cs Zero Sugar/Green/White Display',
+                    value: 'fair-share-display'
+                },
+                {
+                    text: 'Filled Bang Energy Shelves',
+                    value: 'filled-bang-shelves'
+                },
+                {
+                    text: 'Call of Duty POS Placement',
+                    value: 'cod-pos'
+                }
+            ]
+
+            $(document).ready(function() {
+                $('form').find('input, radio, select').each(function() {
+                    if (this.nodeName.toLowerCase() === 'input' && $(this).attr('type') === 'text') {
+                        let thisRegExp = new RegExp($(this).attr('pattern'));
+                        
+                        $(this).on('keyup', function() {
+                            thisValue = $(this).val();
+                            thisValueLength = $(this).val().length;
+                            passRegExp = thisRegExp.test(thisValue);
+                            if ( passRegExp ) {
+                                $(this).css({'background-color': 'green', 'color': 'black'});
+                            } else if (passRegExp === false && thisValueLength != 0) {
+                                $(this).css({'background-color': 'red', 'color': 'white'});
+                            } else {
+                                $(this).css({'background-color': 'black', 'color': 'white'});
+                            }
+                        });
+                    } else if (this.nodeName.toLowerCase() === 'select' && $(this).attr('name') === 'small-large') {
+                        $(this).on('change', function() {
+                            $('#execution-item option').each(function() {
+                                if ( $(this).val() !== '') {
+                                    $(this).remove();
+                                }
+                            });
+
+                            switch ($(this).val()) {
+                                case 'small':
+                                    $.each(smallStoreExecution, function(i, item) {
+                                        var optionItem = new Option(item.text, item.value);
+                                        $('#execution-item').append($(optionItem));
+                                    });
+                                    break;
+                                case 'large':
+                                    $.each(largeStoreExecution, function(i, item) {
+                                        var optionItem = new Option(item.text, item.value);
+                                        $('#execution-item').append($(optionItem));
+                                    });
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        });
+                    }
+
+            });
+        });
+        </script>
     </body>
 </html>
